@@ -34,12 +34,7 @@
       <!-- Image to Base64 -->
       <div class="section">
         <h2>1. Convert Image to Base64</h2>
-        <input
-          class="button button1"
-          type="file"
-          id="imageInput"
-          accept="image/*"
-        />
+        <input type="file" id="imageInput" accept="image/*" />
         <textarea
           id="imageBase64Output"
           readonly
@@ -61,6 +56,7 @@
         <textarea
           id="imageBase64Input"
           placeholder="Paste Image Base64 string here..."
+          width="100%"
         ></textarea>
         <div class="button-group">
           <button class="button button1" onclick="convertBase64ToImage()">
@@ -85,12 +81,7 @@
       <!-- PDF to Base64 -->
       <div class="section">
         <h2>3. Convert PDF to Base64</h2>
-        <input
-          class="button button1"
-          type="file"
-          id="pdfInput"
-          accept="application/pdf"
-        />
+        <input type="file" id="pdfInput" accept="application/pdf" />
         <textarea
           id="pdfBase64Output"
           readonly
@@ -151,7 +142,13 @@
     <!--end container-->
 
     <footer>
-      &copy; <b id="currentYear"></b> Base64 Converter. All rights reserved.
+      &copy; <b id="currentYear"></b> Base64 Converter.
+      <a
+        class="license_text"
+        href="https://drive.google.com/file/d/1P5axigqHovCXC8JLtEswxvqexSD3_wuN/view?usp=sharing"
+      >
+        LICENSE...
+      </a>
       <b>Dr. Djeufo Boris</b>
     </footer>
 
