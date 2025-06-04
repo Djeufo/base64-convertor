@@ -122,8 +122,30 @@
           class="frame-area"
           id="outputPDF"
           width="100%"
-          height="800px"
+          height="500px"
         ></iframe>
+      </div>
+
+      <!-- Text to Base64 -->
+      <div class="section">
+        <h2>5. Convert Text to Base64</h2>
+        <textarea id="textInput" placeholder="Enter text here..."></textarea>
+        <div class="button-group">
+          <button class="button button1" onclick="convertTextToBase64()">
+            Convert
+          </button>
+        </div>
+        <textarea
+          id="textBase64Output"
+          readonly
+          placeholder="Base64-encoded text will appear here..."
+        ></textarea>
+        <button
+          class="button button1"
+          onclick="copyToClipboard('textBase64Output', this)"
+        >
+          Copy Base64 <span class="copied-msg">Copied!</span>
+        </button>
       </div>
     </main>
     <!--end container-->

@@ -103,3 +103,17 @@ function convertBase64ToPDF() {
 
   document.getElementById("outputPDF").src = src; // Set <iframe> or <embed> source to PDF
 }
+
+function convertTextToBase64() {
+  // Get the text input value from the textarea with id "textInput"
+  const inputText = document.getElementById("textInput").value;
+
+  // Convert the text to a Base64 string
+  // encodeURIComponent converts the string to UTF-8 encoding
+  // unescape decodes any percent-encoded characters for btoa compatibility
+  // btoa encodes the binary string into Base64 format
+  const base64Text = btoa(unescape(encodeURIComponent(inputText)));
+
+  // Set the Base64 encoded string as the value of the output textarea with id "textBase64Output"
+  document.getElementById("textBase64Output").value = base64Text;
+}
