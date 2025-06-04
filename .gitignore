@@ -1,0 +1,57 @@
+# Ignore Mac system files
+.DS_Store
+
+# Ignore Node.js dependencies
+node_modules/
+
+# Ignore Python bytecode
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Ignore virtual environments
+venv/
+env/
+ENV/
+
+# Ignore build and distribution directories
+dist/
+build/
+*.egg-info/
+
+# Ignore log files
+*.log
+
+# Ignore VS Code settings
+.vscode/
+
+# Ignore environment files
+.env
+.env.* 
+
+# Ignore IDE specific settings
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Ignore OS generated files
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# Ignore coverage reports
+coverage/
+*.cover
+*.lcov
+.nyc_output/
+
+# Ignore test and debug files
+*.test.*
+*.spec.*
+debug.log
+
+# Ignore temporary files
+*.swp
+*.bak
+*.tmp
+*.temp
