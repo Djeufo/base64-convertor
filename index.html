@@ -1,168 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Base64 Converter (Image & PDF)</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 40px;
-    }
-    textarea {
-      width: 100%;
-      height: 150px;
-      margin-top: 10px;
-    }
-    img, iframe {
-      max-width: 100%;
-      margin-top: 10px;
-      border: 1px solid #ccc;
-    }
-    .section {
-      margin-bottom: 40px;
-    }
-    button {
-      margin-top: 10px;
-      margin-right: 10px;
-      position: relative;
-    }
-    .copied-msg {
-      position: absolute;
-      top: -25px;
-      right: 0;
-      background-color: #4caf50;
-      color: white;
-      padding: 3px 8px;
-      font-size: 12px;
-      border-radius: 4px;
-      display: none;
-    }
-    .show {
-      display: inline-block !important;
-    }
-  </style>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Base64 Converter (Image & PDF)</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <h1>Base64 Converter (Image & PDF)</h1>
 
-  <h1>Base64 Converter (Image & PDF)</h1>
-
-  <!-- Image to Base64 -->
-  <div class="section">
-    <h2>1. Convert Image to Base64</h2>
-    <input type="file" id="imageInput" accept="image/*" />
-    <textarea id="imageBase64Output" readonly placeholder="Image Base64 will appear here..."></textarea>
-    <div class="button-group">
-      <button onclick="copyToClipboard('imageBase64Output', this)">Copy Base64 <span class="copied-msg">Copied!</span></button>
+    <!-- Image to Base64 -->
+    <div class="section">
+      <h2>1. Convert Image to Base64</h2>
+      <input type="file" id="imageInput" accept="image/*" />
+      <textarea
+        id="imageBase64Output"
+        readonly
+        placeholder="Image Base64 will appear here..."
+      ></textarea>
+      <div class="button-group">
+        <button onclick="copyToClipboard('imageBase64Output', this)">
+          Copy Base64 <span class="copied-msg">Copied!</span>
+        </button>
+      </div>
     </div>
-  </div>
 
-  <!-- Base64 to Image -->
-  <div class="section">
-    <h2>2. Convert Base64 to Image</h2>
-    <textarea id="imageBase64Input" placeholder="Paste Image Base64 string here..."></textarea>
-    <div class="button-group">
-      <button onclick="convertBase64ToImage()">Show Image</button>
-      <a id="downloadImageLink" style="display: none;" download="converted-image.png">
-        <button>Download Image</button>
-      </a>
+    <!-- Base64 to Image -->
+    <div class="section">
+      <h2>2. Convert Base64 to Image</h2>
+      <textarea
+        id="imageBase64Input"
+        placeholder="Paste Image Base64 string here..."
+      ></textarea>
+      <div class="button-group">
+        <button onclick="convertBase64ToImage()">Show Image</button>
+        <a
+          id="downloadImageLink"
+          style="display: none"
+          download="converted-image.png"
+        >
+          <button>Download Image</button>
+        </a>
+      </div>
+      <img id="outputImage" src="" alt="Image will appear here..." />
     </div>
-    <img id="outputImage" src="" alt="Image will appear here..." />
-  </div>
 
-  <!-- PDF to Base64 -->
-  <div class="section">
-    <h2>3. Convert PDF to Base64</h2>
-    <input type="file" id="pdfInput" accept="application/pdf" />
-    <textarea id="pdfBase64Output" readonly placeholder="PDF Base64 will appear here..."></textarea>
-    <div class="button-group">
-      <button onclick="copyToClipboard('pdfBase64Output', this)">Copy Base64 <span class="copied-msg">Copied!</span></button>
+    <!-- PDF to Base64 -->
+    <div class="section">
+      <h2>3. Convert PDF to Base64</h2>
+      <input type="file" id="pdfInput" accept="application/pdf" />
+      <textarea
+        id="pdfBase64Output"
+        readonly
+        placeholder="PDF Base64 will appear here..."
+      ></textarea>
+      <div class="button-group">
+        <button onclick="copyToClipboard('pdfBase64Output', this)">
+          Copy Base64 <span class="copied-msg">Copied!</span>
+        </button>
+      </div>
     </div>
-  </div>
 
-  <!-- Base64 to PDF -->
-  <div class="section">
-    <h2>4. Convert Base64 to PDF</h2>
-    <textarea id="pdfBase64Input" placeholder="Paste PDF Base64 string here..."></textarea>
-    <div class="button-group">
-      <button onclick="convertBase64ToPDF()">Show PDF</button>
+    <!-- Base64 to PDF -->
+    <div class="section">
+      <h2>4. Convert Base64 to PDF</h2>
+      <textarea
+        id="pdfBase64Input"
+        placeholder="Paste PDF Base64 string here..."
+      ></textarea>
+      <div class="button-group">
+        <button onclick="convertBase64ToPDF()">Show PDF</button>
+      </div>
+      <iframe id="outputPDF" width="100%" height="500px"></iframe>
     </div>
-    <iframe id="outputPDF" width="100%" height="500px"></iframe>
-  </div>
 
-  <script>
-    // Copy to clipboard with visual feedback
-    function copyToClipboard(elementId, button) {
-      const textArea = document.getElementById(elementId);
-      navigator.clipboard.writeText(textArea.value).then(() => {
-        const msg = button.querySelector('.copied-msg');
-        msg.classList.add('show');
-        setTimeout(() => {
-          msg.classList.remove('show');
-        }, 1500);
-      });
-    }
-
-    // Convert image to Base64
-    document.getElementById('imageInput').addEventListener('change', function (event) {
-      const file = event.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function (e) {
-          document.getElementById('imageBase64Output').value = e.target.result;
-        };
-        reader.readAsDataURL(file);
-      }
-    });
-
-    // Convert Base64 to image
-    function convertBase64ToImage() {
-      const base64 = document.getElementById('imageBase64Input').value.trim();
-      if (!base64) {
-        alert("Please enter a Base64 image string.");
-        return;
-      }
-
-      let src = base64;
-      if (!base64.startsWith("data:image")) {
-        src = "data:image/png;base64," + base64;
-      }
-
-      const img = document.getElementById('outputImage');
-      img.src = src;
-
-      const downloadLink = document.getElementById('downloadImageLink');
-      downloadLink.href = src;
-      downloadLink.style.display = "inline-block";
-    }
-
-    // Convert PDF to Base64
-    document.getElementById('pdfInput').addEventListener('change', function (event) {
-      const file = event.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function (e) {
-          document.getElementById('pdfBase64Output').value = e.target.result;
-        };
-        reader.readAsDataURL(file);
-      }
-    });
-
-    // Convert Base64 to PDF
-    function convertBase64ToPDF() {
-      const base64 = document.getElementById('pdfBase64Input').value.trim();
-      if (!base64) {
-        alert("Please enter a Base64 PDF string.");
-        return;
-      }
-
-      let src = base64;
-      if (!base64.startsWith("data:application/pdf")) {
-        src = "data:application/pdf;base64," + base64;
-      }
-
-      document.getElementById('outputPDF').src = src;
-    }
-  </script>
-
-</body>
+    <script src="js/script.js"></script>
+  </body>
 </html>
